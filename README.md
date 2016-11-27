@@ -1,2 +1,2 @@
 # mkm
-Client API to Magiccardmarket.eu
+API Client to Magiccardmarket.eu
