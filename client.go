@@ -52,8 +52,8 @@ func (f OutputFormat) Str() string {
 type Endpoint int
 
 const (
-	Prodution Endpoint = iota
-	Sandbox
+	Sandbox Endpoint = iota
+	Prodution
 )
 
 func (e Endpoint) Str() string {
@@ -67,8 +67,8 @@ func (e Endpoint) Str() string {
 type Version int
 
 const (
-	v1 Version = iota
-	v2
+	V1 Version = iota
+	V2
 )
 
 func (e Version) Str() string {
@@ -116,7 +116,7 @@ func (c *Client) do(req *http.Request) ([]byte, error) {
 	return body, nil
 }
 
-func (c *Client) request(method Method, resource string, data []byte) ([]byte, error) {
+func (c *Client) Request(method Method, resource string, data []byte) ([]byte, error) {
 	url := fmt.Sprint(c.endpoint, c.version, c.outputfmt, resource)
 	req, err := http.NewRequest(method.Str(), url, bytes.NewReader(data))
 	if err != nil {
