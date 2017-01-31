@@ -32,9 +32,8 @@ func TestEncondedParam(t *testing.T) {
 	expect := "oauth_consumer_key%3D%26oauth_nonce%3DLyNoDV8MBnIrpBXtoTGefh9Vvcng5FQ1OCqB3kE5Ryk%253D%26oauth_signature_method%3DHMAC-SHA1%26oauth_timestamp%3D1479036986%26oauth_token%3D%26oauth_version%3D1.0"
 
 	if expect != result {
-		t.Error("expect ", expect, " got ", result)
+		t.Error("expect ", expect, "got ", result)
 	}
-
 }
 
 func TestNonce(t *testing.T) {
@@ -84,9 +83,10 @@ func TestOAuthSign(t *testing.T) {
 	}
 	auth := header["Authorization"]
 	tsx := strings.Split(auth[0], ",")
+
 	for _, v := range tsx {
 		if strings.Contains(v, "oauth_signature=") {
-			result = strings.Trim(v, " ")
+			result = strings.Trim(strings.Replace(v, "OAuth ", "", 1), " ")
 		}
 	}
 	if expect != result {
