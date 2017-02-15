@@ -7,12 +7,12 @@ API Client to Magiccardmarket.eu
 ### How to Use
 - Getting the code :
 
-```
+```go
 go get github.com/ngmachado/mkm
 ```
 
 - import into your project
-```
+```go
 package main 
 
 import (
@@ -24,7 +24,7 @@ import (
 
 # Working with mkm (example)
 
-```
+```go
 package main
 
 import (
