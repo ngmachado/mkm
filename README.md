@@ -2,16 +2,17 @@
 API Client to Magiccardmarket.eu
 
 [![Build Status](https://travis-ci.org/ngmachado/mkm.svg?branch=master)](https://travis-ci.org/ngmachado/mkm)
+[![Go Report Card](https://goreportcard.com/badge/github.com/ngmachado/mkm)](https://goreportcard.com/report/github.com/ngmachado/mkm)
 
 ### How to Use
 - Getting the code :
 
-```
+```go
 go get github.com/ngmachado/mkm
 ```
 
 - import into your project
-```
+```go
 package main 
 
 import (
@@ -23,7 +24,7 @@ import (
 
 # Working with mkm (example)
 
-```
+```go
 package main
 
 import (
