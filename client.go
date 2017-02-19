@@ -15,9 +15,13 @@ import (
 type Method int
 
 const (
+	//Get verb
 	Get Method = iota
+	//Post verb
 	Post
+	//Put verb
 	Put
+	//Delete verb
 	Delete
 )
 
@@ -41,7 +45,9 @@ func (m Method) String() string {
 type OutputFormat int
 
 const (
+	//XML response
 	XML OutputFormat = iota
+	//JSON response
 	JSON
 )
 
@@ -58,7 +64,9 @@ func (f OutputFormat) String() string {
 type Endpoint int
 
 const (
+	//Sandbox environment - Safe for tests
 	Sandbox Endpoint = iota
+	//Prodution environment - Real deal
 	Prodution
 )
 
@@ -75,7 +83,9 @@ func (e Endpoint) String() string {
 type Version int
 
 const (
+	//V1 API
 	V1 Version = iota
+	//V2 API
 	V2
 )
 
@@ -83,9 +93,8 @@ const (
 func (e Version) String() string {
 	if e == 0 {
 		return "/v1.1"
-	} else {
-		return "/v2.0"
 	}
+	return "/v2.0"
 }
 
 //Client is the starting point to making request to services
@@ -97,7 +106,7 @@ type Client struct {
 	outputfmt string
 }
 
-//return a new client that with timeout after 10 seconds
+//NewClient return a new client that with timeout after 10 seconds
 func NewClient(keys *Keys, endpoint Endpoint, version Version, output OutputFormat) *Client {
 	return &Client{
 		client:    &http.Client{Timeout: time.Second * 10},
@@ -126,7 +135,7 @@ func (c *Client) do(req *http.Request) ([]byte, error) {
 	return body, nil
 }
 
-//Request method will create the request, validate with oath header and sended to service
+//Request method will create the request, validate with oath header and sended to service.
 //Return the response and error if exists
 func (c *Client) Request(method Method, resource string, data []byte) ([]byte, error) {
 	url := fmt.Sprint(c.endpoint, c.version, c.outputfmt, resource)

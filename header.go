@@ -9,7 +9,7 @@ import (
 //HeaderParams structure that holds parameters of request headers
 type HeaderParams map[string]string
 
-//Create a new HeaderParams
+//NewHeaderParams create a new HeaderParams
 func NewHeaderParams(urlStr string, keys *Keys, nonce string, timestamp string) HeaderParams {
 	return HeaderParams{
 		"realm":                  urlStr,
@@ -22,7 +22,7 @@ func NewHeaderParams(urlStr string, keys *Keys, nonce string, timestamp string) 
 	}
 }
 
-//Sort HeaderParams keys
+//OrderKeys sort HeaderParams keys
 func (h HeaderParams) OrderKeys() []string {
 	var keys []string
 	for k := range h {
@@ -32,7 +32,7 @@ func (h HeaderParams) OrderKeys() []string {
 	return keys
 }
 
-//Escapes parameters. Excludes realm parameter
+//EscapeParams escapes parameters. Excludes realm parameter
 func (h HeaderParams) EscapeParams() string {
 	escape := make(HeaderParams)
 	for key, value := range h {
