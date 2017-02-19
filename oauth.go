@@ -31,7 +31,7 @@ func (n Nonce) Nonce() string {
 
 type Stamp struct{}
 
-// Returns the Unix epoch seconds string
+//Timestamp returns the Unix epoch seconds string
 func (s Stamp) Timestamp() string {
 	return fmt.Sprintf("%v", time.Now().Unix())
 }

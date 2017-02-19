@@ -1,3 +1,4 @@
+//Package mkm provides a client implementation to the magiccardmarket.eu api
 package mkm
 
 import (
@@ -10,6 +11,7 @@ import (
 	"time"
 )
 
+//Method type represent http verbs allowed
 type Method int
 
 const (
@@ -19,7 +21,8 @@ const (
 	Delete
 )
 
-func (m Method) Str() string {
+//String return a string representation of type Method
+func (m Method) String() string {
 	switch m {
 	case 0:
 		return "GET"
@@ -34,6 +37,7 @@ func (m Method) Str() string {
 	}
 }
 
+//OutputFormat represent the response format from the services
 type OutputFormat int
 
 const (
@@ -41,14 +45,16 @@ const (
 	JSON
 )
 
-func (f OutputFormat) Str() string {
+//String return a string representation of type OutputFormat
+func (f OutputFormat) String() string {
 	if f == 1 {
 		return "/output.json"
-	} else {
-		return ""
 	}
+
+	return ""
 }
 
+//Endpoint define which environment to make requests
 type Endpoint int
 
 const (
@@ -56,14 +62,16 @@ const (
 	Prodution
 )
 
-func (e Endpoint) Str() string {
+//String return a string representation of type Endpoint
+func (e Endpoint) String() string {
 	if e == 0 {
 		return "https://sandbox.mkmapi.eu/ws"
-	} else {
-		return "https://www.mkmapi.eu/ws"
 	}
+
+	return "https://www.mkmapi.eu/ws"
 }
 
+//Version define the API version to use
 type Version int
 
 const (
@@ -71,7 +79,8 @@ const (
 	V2
 )
 
-func (e Version) Str() string {
+//String return a string representation of type Version
+func (e Version) String() string {
 	if e == 0 {
 		return "/v1.1"
 	} else {
@@ -79,6 +88,7 @@ func (e Version) Str() string {
 	}
 }
 
+//Client is the starting point to making request to services
 type Client struct {
 	client    *http.Client
 	oauth     *OAuth
@@ -92,9 +102,9 @@ func NewClient(keys *Keys, endpoint Endpoint, version Version, output OutputForm
 	return &Client{
 		client:    &http.Client{Timeout: time.Second * 10},
 		oauth:     NewOAuth(keys, nil, nil),
-		endpoint:  endpoint.Str(),
-		version:   version.Str(),
-		outputfmt: output.Str(),
+		endpoint:  endpoint.String(),
+		version:   version.String(),
+		outputfmt: output.String(),
 	}
 }
 
@@ -116,9 +126,11 @@ func (c *Client) do(req *http.Request) ([]byte, error) {
 	return body, nil
 }
 
+//Request method will create the request, validate with oath header and sended to service
+//Return the response and error if exists
 func (c *Client) Request(method Method, resource string, data []byte) ([]byte, error) {
 	url := fmt.Sprint(c.endpoint, c.version, c.outputfmt, resource)
-	req, err := http.NewRequest(method.Str(), url, bytes.NewReader(data))
+	req, err := http.NewRequest(method.String(), url, bytes.NewReader(data))
 	if err != nil {
 		return nil, err
 	}
